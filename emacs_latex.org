@@ -1,0 +1,24 @@
+* emacs 格式化导出
+** 环境部署(ArchLinux)
+*** 安装texlive(官方文档，选择网络安装)
+*** yaourt -S auctex
+*** 验证安装
+**** tex '\empty Hello world!\bye'
+**** pdftex '\empty Hello world!\bye'
+** 配置emacs
+**** cp -r  /usr/share/emacs/site-lisp/auctex* .emacs.d/site-lisp
+**** cp /usr/share/emacs/site-lisp/tex-site.el ~/.emacs.d
+**** vim /root/.emacs.d/custom.el
+ (load "auctex.el" nil t t)
+ (load "preview-latex.el" nil t t)
+ (setq Tex-auto-save t)
+ (setq Tex-parse-self t)
+ (setq-default Tex-master nil)
+** bug
+*** 缺少字体
+**** ! LaTeX Error: File `wrapfig.sty' not found.
+**** 解决办法
+***** cp -r /usr/local/texlive/2017/texmf-dist/tex/latex/wrapfig  /usr/share/texmf-dist/tex/latex/
+***** mktexlsr 更新索引
+** emacs将org-mode导成其他格式
+*** C-c C-e

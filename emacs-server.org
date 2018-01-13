@@ -1,0 +1,3 @@
+* emacs: open remote file with local emacs server
+** env:
+***
