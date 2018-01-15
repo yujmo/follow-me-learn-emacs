@@ -1,0 +1,10 @@
+;; emacs发送邮件配置
+(setq send-mail-function (quote smtpmail-send-it))
+(setq smtpmail-smtp-server "smtp.qq.com")
+(setq smtpmail-smtp-service 25)
+(setq user-full-name "yujmo")
+(setq user-mail-address "1103137684@qq.com")
+;; 需要在home下新建.authinfo文件，内容如下（都是你作为发件人的信息，你的邮箱地址，你的邮箱密码）
+;; machine smtp.qq.com login 邮箱地址 port 25 password 密码明文
+
+#Python调试，发送代码至任意Buffer
