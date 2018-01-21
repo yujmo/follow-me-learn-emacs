@@ -1,0 +1,182 @@
+%%
+%% This is file `lwarp-xcolor.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% lwarp.dtx  (with options: `xcolor')
+%% This is a generated file.
+%% Copyright 2016-2017 Brian Dunn
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+
+
+\LWR@ProvidesPackagePass{xcolor}
+
+\begin{warpHTML}
+\LetLtxMacro\LWRprint@textcolor\textcolor
+\LetLtxMacro\LWRprint@pagecolor\pagecolor
+\LetLtxMacro\LWRprint@nopagecolor\nopagecolor
+\LetLtxMacro\LWRprint@colorbox\colorbox
+\LetLtxMacro\LWRprint@colorboxBlock\colorbox
+\LetLtxMacro\LWRorigprint@fcolorbox\fcolorbox
+\LetLtxMacro\LWRorigprint@fcolorboxBlock\fcolorbox
+\LetLtxMacro\LWRorigprint@boxframe\boxframe
+\appto{\LWR@restoreorigformatting}{%
+\LetLtxMacro\textcolor\LWRprint@textcolor%
+\LetLtxMacro\pagecolor\LWRprint@pagecolor%
+\LetLtxMacro\nopagecolor\LWRprint@nopagecolor%
+\LetLtxMacro\colorbox\LWRprint@colorbox%
+\LetLtxMacro\fcolorbox\LWRprint@fcolorbox%
+\LetLtxMacro\boxframe\LWRorigprint@boxframe%
+}
+\newcommand*{\LWR@tempcolor}{}
+\newcommand*{\LWR@tempcolortwo}{}
+\NewDocumentCommand{\LWR@colorstyle}{m m}{%
+\begingroup%
+\LWR@FBcancel%
+\convertcolorspec{#1}{#2}{HTML}\LWR@tempcolor%
+\#\LWR@tempcolor%
+\endgroup%
+}
+\newcommand*{\LWR@borderpadding}[2]{%
+\uselengthunit{PT}%
+border:\rndprintlength{\LWR@atleastonept} solid \LWR@colorstyle{#1}{#2} ; %
+padding:\rndprintlength{\fboxsep}%
+}
+\RenewDocumentCommand{\textcolor}{O{named} m m}{%
+\begingroup%
+\LWR@FBcancel%
+\convertcolorspec{#1}{#2}{HTML}\LWR@tempcolor%
+\InlineClass[color:\LWR@colorstyle{#1}{#2}]{textcolor}{%
+\renewcommand*{\LWR@currenttextcolor}{\#\LWR@tempcolor}%
+#3%
+}%
+\endgroup%
+}
+
+\renewcommand*{\pagecolor}[2][named]{}
+
+\let\nopagecolor\relax
+
+\RenewDocumentCommand{\colorbox}{O{named} m +m}{%
+\begingroup%
+\LWR@FBcancel%
+\uselengthunit{PT}%
+\InlineClass[%
+background:\LWR@colorstyle{#1}{#2} ; %
+padding:\rndprintlength{\fboxsep}%
+]{colorbox}{#3}%
+\endgroup%
+}
+
+\NewDocumentCommand{\colorboxBlock}{O{named} m +m}{%
+\begingroup%
+\LWR@FBcancel%
+\uselengthunit{PT}%
+\begin{BlockClass}[%
+background:\LWR@colorstyle{#1}{#2} ; %
+padding:\rndprintlength{\fboxsep}%
+]{colorboxBlock}
+#3
+\end{BlockClass}%
+\endgroup%
+}
+
+\RenewDocumentCommand{\fcolorbox}{O{named} m O{named} m +m}{%
+\LWR@traceinfo{HTML fcolorbox #2 #4}%
+\begingroup%
+\LWR@FBcancel%
+\uselengthunit{PT}%
+\LWR@forceminwidth{\fboxrule}%
+\ifthenelse{\equal{#4}{none}}%
+{% no background color
+    \InlineClass[%
+    \LWR@borderpadding{#1}{#2}%
+    ]{fcolorbox}{#5}%
+}%
+{% yes background color
+    \InlineClass[%
+    \LWR@borderpadding{#1}{#2} ; %
+    background:\LWR@colorstyle{#3}{#4}%
+    ]{fcolorbox}{#5}%
+}%
+\endgroup%
+}
+
+\NewDocumentCommand{\fcolorboxBlock}{O{named} m O{named} m +m}{%
+\LWR@traceinfo{HTML fcolorboxBlock #2 #4}%
+\begingroup%
+\LWR@FBcancel%
+\uselengthunit{PT}%
+\LWR@forceminwidth{\fboxrule}%
+\ifthenelse{\equal{#4}{none}}%
+{% no background color
+    \begin{BlockClass}[%
+    \LWR@borderpadding{#1}{#2}%
+    ]{fcolorboxBlock}
+    #5
+    \end{BlockClass}%
+}%
+{% yes background color
+    \convertcolorspec{#3}{#4}{HTML}\LWR@tempcolortwo%
+    \begin{BlockClass}[%
+    background:\#\LWR@tempcolortwo; %
+    \LWR@borderpadding{#1}{#2}%
+    ]{fcolorboxBlock}
+    #5
+    \end{BlockClass}%
+}%
+\endgroup%
+\LWR@traceinfo{HTML fcolorboxBlock done}%
+}
+
+\NewDocumentCommand{\LWR@subfcolorminipage}{m m m m}{%
+\begin{BlockClass}[%
+#3%
+\LWR@borderpadding{#1}{#2} ; %
+\IfValueT{#4}{height:\rndprintlength{\LWR@tempheight} ; }%
+width:\rndprintlength{\LWR@tempwidth}%
+]{fcolorminipage}%
+}
+\NewDocumentEnvironment{fcolorminipage}{O{named} m O{named} m O{c} o o m}
+{%
+\LWR@FBcancel%
+\setlength{\LWR@tempwidth}{#8}%
+\IfValueT{#6}{\setlength{\LWR@tempheight}{#6}}%
+\uselengthunit{PT}%
+\LWR@forceminwidth{\fboxrule}%
+\convertcolorspec{#1}{#2}{HTML}\LWR@tempcolor%
+\ifthenelse{\equal{#4}{none}}%
+{\LWR@subfcolorminipage{#1}{#2}{}{#6}}%
+{%
+    \convertcolorspec{#3}{#4}{HTML}\LWR@tempcolortwo%
+    \LWR@subfcolorminipage{#1}{#2}{background:\#\LWR@tempcolortwo\ ; }{#6}%
+}%
+}
+{\end{BlockClass}}
+\renewcommand*{\boxframe}[3]{%
+{%
+\setlength{\LWR@tempwidth}{#1}%
+\setlength{\LWR@tempheight}{#2}%
+\addtolength{\LWR@tempheight}{#3}%
+\uselengthunit{PT}%
+\LWR@forceminwidth{\fboxrule}%
+\InlineClass[%
+display:inline-block ; %
+border:\rndprintlength{\LWR@atleastonept} solid \LWR@currenttextcolor{} ; %
+width:\rndprintlength{\LWR@tempwidth} ; %
+height:\rndprintlength{\LWR@tempheight}%
+]{boxframe}{}%
+}%
+}
+\end{warpHTML}
+\endinput
+%%
+%% End of file `lwarp-xcolor.sty'.

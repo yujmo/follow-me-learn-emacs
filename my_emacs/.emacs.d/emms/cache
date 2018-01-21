@@ -1,0 +1,4 @@
+;;; .emms-cache -*- mode: emacs-lisp; coding: utf-8; -*-
+(puthash "/root/桌面/video_20180106_204827.mp4" '(*track* (type . file) (name . "/root/桌面/video_20180106_204827.mp4") (metadata) (info-mtime 23122 5233 868558 344000) (last-played 23122 6613 376075 698000) (play-count . 4)) emms-cache-db)
+(puthash "/root/桌面/优酷.desktop" '(*track* (type . file) (name . "/root/桌面/优酷.desktop") (metadata) (info-mtime 23114 64098 652634 207000)) emms-cache-db)
+(puthash "/root/桌面/演示.mp4" '(*track* (type . file) (name . "/root/桌面/演示.mp4") (metadata) (info-mtime 23037 35870 0 0) (last-played 23130 61112 3861 193000) (play-count . 3)) emms-cache-db)

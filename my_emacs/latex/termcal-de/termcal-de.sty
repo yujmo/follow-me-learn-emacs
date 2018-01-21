@@ -1,0 +1,99 @@
+%%	This is file 'termccal-de.sty', Version 2017-08-03
+%%	Copyright 2017 Sebastian Friedl <sfr682k@t-online.de>
+%% 
+%%	This work may be distributed and/or modified under the conditions of the LaTeX Project
+%%	Public License, either version 1.3c of this license or (at your option) any later version.
+%%	The latest version of this license is available at
+%%		http://www.latex-project.org/lppl.txt
+%%	and version 1.3c or later is part of all distributions of LaTeX version 2008-05-04 or later
+%%
+%%	This work has the LPPL maintenace status 'maintained'.
+%%	The current maintainer of this work is Sebastian Friedl.
+%%
+%%	This work consists of the files termcal-de.sty and termcal-de-doc.tex
+%%
+%%	-------------------------------------------------------------------------------------------
+%%
+%%	The termcal-de package provides a German localization to the termcal package written by
+%%	Bill Mitchell, which is intended to print a term calendar for use in planning a class.
+%%
+%%	-------------------------------------------------------------------------------------------
+%%
+%%	Please report bugs and other problems as well as suggestions for improvements
+%%	to my email address (sfr682k@t-online.de).
+%%
+%%	-------------------------------------------------------------------------------------------
+
+
+
+\ProvidesPackage{termcal-de}[2017/08/03 German locals to the termcal package]
+
+\NeedsTeXFormat{LaTeX2e}
+
+
+
+% REQUIRED PACKAGES ---------------------------------------------------------------------------
+
+\RequirePackage{termcal}	% Loads termcal when not already done so
+\RequirePackage{iftex}		% For encoding detection when XeLaTeX/LuaLaTeX is used
+
+
+
+% OPTION DECLARATION --------------------------------------------------------------------------
+
+% shortmonth -- print short month names inside the calender instead of long ones
+\renewcommand{\calprintdate}{\calprintdatelmonth}
+\DeclareOption{shortmonth}{\renewcommand{\calprintdate}{\calprintdatesmonth}}
+
+\ProcessOptions
+
+
+
+% REDEFINITIONS -------------------------------------------------------------------------------
+
+% Date specifications: D.M.YYYY instead of M/D/YY
+\def\setdate@#1.#2.#3!{
+	\setcounter{date}{#1}
+	\setcounter{month}{#2}
+	\setcounter{year}{#3}
+	\global\newmonthtrue\setleap}
+
+% Current date: D.M.YYYY instead of M/D/YY
+\renewcommand{\curdate}{%
+	\arabic{date}.\arabic{month}.\arabic{year}}
+
+% Command for printing the "normal" German date specification D. MMMM YYYY
+\newcommand{\currentdate}{\arabic{date}.~\longmonthname~\arabic{year}}
+
+% The date printed inside the calender cells -- short month
+\newcommand{\calprintdatesmonth}{%
+	\arabic{date}\ifnewmonth.~\textbf{\monthname}\fi
+}
+% The date printed inside the calender cells -- long month
+\newcommand{\calprintdatelmonth}{%
+	\arabic{date}\ifnewmonth.~\textbf{\longmonthname}\fi
+}
+
+% German short month names
+\renewcommand{\monthname}{%
+	\ifcase\c@month\or Jan\or Feb\or Mrz\or Apr%
+	\or Mai\or Juni\or Juli\or Aug\or Sep\or Okt%
+	\or Nov\or Dez\fi}
+
+% German long month names -- engine dependent selection
+\ifLuaTeX	\newcommand{\longmonthname}{\longmonthnameutfacht} % utf8 for LuaLaTeX
+\else	\ifXeTeX	\newcommand{\longmonthname}{\longmonthnameutfacht} % utf8 for XeLaTeX
+		\else	\newcommand{\longmonthname}{\longmonthnameascii} % ascii for everything else
+\fi		\fi
+
+% German long month names -- utf-8 encoding
+\newcommand{\longmonthnameutfacht}{%
+	\ifcase\c@month\or Januar\or Februar\or März\or April%
+	\or Mai\or Juni\or Juli\or August\or September\or Oktober%
+	\or November\or Dezember\fi}
+
+% German long month names -- ASCII encoding
+\newcommand{\longmonthnameascii}{%
+	\ifcase\c@month\or Januar\or Februar\or M\protect\"arz\or April%
+	\or Mai\or Juni\or Juli\or August\or September\or Oktober%
+	\or November\or Dezember\fi}
